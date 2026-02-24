@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -36,30 +37,38 @@ export default function RootLayout({
               <div className="flex items-center gap-4 md:gap-10">
                 <div className="flex items-center gap-2">
                   <Image
-                    src="/images/icon-dark.png"
+                    src="/icon.svg"
                     width={30}
                     height={30}
                     alt="centmetrics logo"
+                    className="rounded dark:invert"
                   />
                   <a href="/" className="font-bold text-lg">
                     CentMetrics
                   </a>
                 </div>
 
-                <a href="/" className="text-gray-400 hover:text-gray-200">
+                <a
+                  href="/"
+                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
+                >
                   Home
                 </a>
                 <a
                   href="/features"
-                  className="text-gray-400 hover:text-gray-200"
+                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
                 >
                   Features
                 </a>
-                <a href="/about" className="text-gray-400 hover:text-gray-200">
+                <a
+                  href="/about"
+                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
+                >
                   About
                 </a>
               </div>
               <div className="flex gap-4 items-center">
+                <ThemeToggle />
                 <Button variant="outline" asChild>
                   <Link href="/login">Sign In</Link>
                 </Button>
