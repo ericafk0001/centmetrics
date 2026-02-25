@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -50,24 +51,24 @@ export default function RootLayout({
 
                 <a
                   href="/"
-                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
+                  className="hidden md:block dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
                 >
                   Home
                 </a>
                 <a
                   href="/features"
-                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
+                  className="hidden md:block dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
                 >
                   Features
                 </a>
                 <a
                   href="/about"
-                  className="dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
+                  className="hidden md:block dark:text-gray-400 dark:hover:text-gray-200 text-gray-800 hover:text-gray-600"
                 >
                   About
                 </a>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="hidden md:flex gap-4 items-center">
                 <ThemeToggle />
                 <Button variant="outline" asChild>
                   <Link href="/login">Sign In</Link>
@@ -76,6 +77,7 @@ export default function RootLayout({
                   <Link href="/signup">Sign Up</Link>
                 </Button>
               </div>
+              <MobileNav />
             </div>
           </header>
           {children}
