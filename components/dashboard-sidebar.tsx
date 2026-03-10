@@ -17,7 +17,9 @@ export function DashboardSidebar() {
         collapsed ? "w-16" : "w-64"
       } border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black transition-[width] duration-300 flex flex-col overflow-hidden`}
     >
-      <div className={`p-4 flex flex-col gap-2 ${collapsed ? "items-center" : ""}`}>
+      <div
+        className={`p-4 flex flex-col gap-2 ${collapsed ? "items-center" : ""}`}
+      >
         <Button
           variant="ghost"
           size="icon"
