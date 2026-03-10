@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { useTheme } from "next-themes";
 import {
   LineChart,
   Line,
@@ -11,6 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Card, CardContent } from "@/components/ui/card";
 
 const data = [
   { month: "Jan", value: 4000 },
@@ -23,6 +25,8 @@ const data = [
 
 export default function DashboardPage() {
   const cardsRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     if (cardsRef.current) {
@@ -36,7 +40,9 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Analytics Overview</h1>
+      <h1 className="text-2xl font-bold text-black dark:text-white">
+        Dashboard
+      </h1>
 
       {/* KPI Cards */}
       <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -45,40 +51,54 @@ export default function DashboardPage() {
           { label: "Active Users", value: "3,842" },
           { label: "Conversion Rate", value: "5.27%" },
         ].map((card) => (
-          <div
+          <Card
             key={card.label}
-            className="rounded-xl bg-gray-900 p-5 border border-gray-800"
+            className="border-zinc-200 dark:border-zinc-800"
           >
-            <p className="text-sm text-gray-400">{card.label}</p>
-            <p className="mt-1 text-3xl font-bold">{card.value}</p>
-          </div>
+            <CardContent className="p-5">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                {card.label}
+              </p>
+              <p className="mt-1 text-3xl font-bold text-black dark:text-white">
+                {card.value}
+              </p>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
       {/* Chart */}
-      <div className="rounded-xl bg-gray-900 border border-gray-800 p-5">
-        <h2 className="mb-4 text-lg font-semibold">Monthly Revenue</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="month" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#111827",
-                border: "1px solid #374151",
-              }}
-            />
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke="#6366F1"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      <Card className="border-zinc-200 dark:border-zinc-800">
+        <CardContent className="p-5">
+          <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
+            Monthly Revenue
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={data}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke={isDark ? "#3f3f46" : "#e4e4e7"}
+              />
+              <XAxis dataKey="month" stroke={isDark ? "#a1a1aa" : "#71717a"} />
+              <YAxis stroke={isDark ? "#a1a1aa" : "#71717a"} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: isDark ? "#000000" : "#ffffff",
+                  border: isDark ? "1px solid #3f3f46" : "1px solid #e4e4e7",
+                  color: isDark ? "#ffffff" : "#000000",
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke={isDark ? "#ffffff" : "#000000"}
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
     </div>
   );
 }
