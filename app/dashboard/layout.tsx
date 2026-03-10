@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DashboardSidebar } from "@/components/dashboard-sidebar";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -28,7 +29,7 @@ export default async function DashboardLayout({
             className="rounded dark:invert"
           />
           <Link href="/dashboard" className="font-bold text-lg">
-            Dashboard
+            CentMetrics
           </Link>
         </div>
         <div className="flex items-center gap-4">
@@ -38,7 +39,10 @@ export default async function DashboardLayout({
           <ThemeToggle />
         </div>
       </nav>
-      <main className="p-6">{children}</main>
+      <div className="flex min-h-[calc(100vh-65px)]">
+        <DashboardSidebar />
+        <main className="flex-1 p-6">{children}</main>
+      </div>
     </div>
   );
 }
